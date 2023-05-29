@@ -1,0 +1,72 @@
+title: "שרתים"
+path: "servers"
+icon: "mdi:nas"
+cards:
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: chip_back
+            variables:
+              ulm_chip_back_path: home
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.servers_room_temperature
+                color: orange
+            name: טמפרטורה
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: orange
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.servers_room_humidity
+                color: "#1e90ff"
+            name: LIVING ROOM
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: "#1e90ff"
+      - type: "custom:button-card"
+        template: "custom_card_nik_nas"
+        entity: switch.lab_switch
+        variables:
+          graph_span: "1d"
+          chart_type: "radialBar"
+          entity_1:
+            entity_id: "sensor.nextcloud_nextcloud_system_version"
+            icon: ''
+            name: "Temp"
+            color: "yellow"
+            max_value: 100
+          entity_2:
+            entity_id: "sensor.nextcloud_nextcloud_system_mem_total"
+            icon: ''
+            name: "Memory"
+            color: "blue"
+            max_value: 100
+          entity_3:
+            entity_id: "sensor.nextcloud_nextcloud_system_cpuload"
+            icon: ''
+            name: "CPU"
+            color: "green"
+            max_value: 100
+          entity_4:
+            entity_id: "sensor.nextcloud_nextcloud_system_freespace"
+            icon: "mdi:harddisk"
+            name: "Disk"
+            color: "red"
+        

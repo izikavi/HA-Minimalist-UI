@@ -1,0 +1,687 @@
+title: "חדר שינה"
+path: "bedroom"
+icon: "mdi:bed-king"
+cards:
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: chip_back
+            variables:
+              ulm_chip_back_path: home
+          - type: "custom:button-card"
+            color_type: blank-card
+          - type: 'custom:button-card'
+            template: 'custom_chip_group_counter'
+            entity: light.bedroom_lights_count
+            variables:
+              custom_chip_group_counter_language_variables: heb
+              ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
+              ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
+              ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.bedroom_broadlink_temperature
+                color: orange
+            name: טמפרטורה
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: orange
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.bedroom_broadlink_humidity
+                color: "#1e90ff"
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: "#1e90ff"
+      - type: custom:mushroom-title-card
+        title: אורות
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bedroom_light
+            icon_color: amber
+            primary_info: name
+            secondary_info: none
+            layout: vertical
+            name: מרכזי
+      - type: custom:mushroom-title-card
+        title: שלטים
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: טלוויזיה
+            secondary: ""
+            icon: mdi:television
+            icon_color: "#865DFF"
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  browser_id: THIS
+                  title: טלוויזיה
+                  content:
+                    type: grid
+                    square: false
+                    columns: 3
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: CH
+                        secondary: ""
+                        icon: mdi:arrow-up-bold-box
+                        layout: vertical
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: ch_up
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:power
+                        icon_color: >-
+                          {% set tv = states('sensor.bedroom_broadlink') | float(0) %}
+                          {% if 2 < tv %}
+                          yellow
+                          {% else %}
+                          grey
+                          {% endif %}
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: power
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-plus
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: vol_up
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: CH
+                        secondary: ""
+                        icon: mdi:arrow-down-bold-box
+                        icon_color: white
+                        layout: vertical
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: ch_down
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-mute
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: mute
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: red
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-minus
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: vol_down
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi
+                        layout: horizontal
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-up-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: up
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: SRC
+                        secondary: ""
+                        icon: mdi:import
+                        icon_color: white
+                        layout: vertical
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: source
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-left-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: left
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:square-rounded
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: ok
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-right-bold-outline
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: right
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:menu
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: menu
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-down-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: down
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                      - type: custom:mushroom-template-card
+                        primary: Exit
+                        secondary: ""
+                        icon: mdi:location-exit
+                        layout: vertical
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: TV
+                            command: exit
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                        icon_color: white
+            layout: vertical
+          - type: custom:mushroom-template-card
+            primary: מזגן
+            secondary: ""
+            icon: mdi:air-conditioner
+            icon_color: "#865DFF"
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  browser_id: THIS
+                  title: מזגן
+                  content:
+                    square: false
+                    columns: 2
+                    type: grid
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: כיבוי
+                        secondary: ""
+                        icon: mdi:power
+                        layout: vertical
+                        icon_color: |-
+                          {% if is_state('','on') %}
+                          white
+                          {% else %}
+                          grey
+                          {% endif %}
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: "off"
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: ""
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: heat
+                      - type: custom:mushroom-template-card
+                        primary: איוורור
+                        secondary: ""
+                        icon: mdi:fan
+                        icon_color: white
+                        layout: vertical
+                        multiline_secondary: false
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: fan
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: ""
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        multiline_secondary: false
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: cool
+            layout: vertical
+          - type: custom:mushroom-template-card
+            primary: סטרימר
+            secondary: ""
+            icon: mdi:television-box
+            icon_color: "#865DFF"
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  browser_id: THIS
+                  title: סטרימר
+                  content:
+                    square: false
+                    columns: 3
+                    type: grid
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:power
+                        icon_color: >-
+                          {% if
+                          is_state('media_player.android_tv_192_168_50_72','Idle')
+                          %} white {% elif
+                          is_state('media_player.android_tv_192_168_50_72','Paused')
+                          %} yellow {% elif
+                          is_state('media_player.android_tv_192_168_50_72','Standby')
+                          %} grey {% elif
+                          is_state('media_player.android_tv_192_168_50_72','Playing')
+                          %} blue {% else %} red {% endif %}
+                        layout: horizontal
+                        tap_action:
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            command: POWER
+                          target:
+                            entity_id: remote.mi_living_room
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:home
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          service: remote.send_command
+                          data:
+                            num_repeats: 1
+                            command: HOME
+                          target:
+                            entity_id: remote.mi_living_room
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-plus
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_up
+                          data: {}
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:television-classic
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.select_source
+                          data:
+                            source: com.efs.telly.sdarottv
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: blue
+                        picture: /local/sdarot.png
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-mute
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_mute
+                          data:
+                            is_volume_muted: false
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: red
+                        picture: ""
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:volume-minus
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_down
+                          data: {}
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: ""
+                        layout: horizontal
+                        icon_color: ""
+                        picture: /local/Partner.png
+                        tap_action:
+                          action: call-service
+                          service: media_player.select_source
+                          data:
+                            source: il.co.partner.tv.androidtv
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-up-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: UP
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        picture: ""
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-u-left-top-bold
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: BACK
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        fill_container: false
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-left-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: LEFT
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:square-rounded
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: CENTER
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-right-bold-outline
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: RIGHT
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: white
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: ""
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.select_source
+                          data:
+                            source: com.applicaster.il.ch1
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        picture: /local/kan.png
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:arrow-down-bold-outline
+                        icon_color: white
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: androidtv.adb_command
+                          data:
+                            command: DOWN
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                      - type: custom:mushroom-template-card
+                        primary: ""
+                        secondary: ""
+                        icon: mdi:location-exit
+                        layout: horizontal
+                        tap_action:
+                          action: call-service
+                          service: media_player.select_source
+                          data:
+                            source: com.teamsmart.videomanager.tv
+                          target:
+                            entity_id: media_player.android_tv_192_168_50_72
+                        icon_color: white
+                        picture: /local/youtube.png
+            layout: vertical
+      - type: custom:mushroom-title-card
+        title: סקריפטים
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: לילה טוב עופרי
+            secondary: ""
+            icon: mdi:lightbulb-night
+            layout: vertical
+            icon_color: lime
+            entity: input_boolean.night_ofri
+          - type: custom:mushroom-template-card
+            primary: ערב סרט
+            secondary: ""
+            icon: mdi:movie-open
+            badge_color: ""
+            layout: vertical
+            icon_color: lime
+            entity: input_button.movie_night
+          - type: custom:mushroom-template-card
+            primary: ערב סרט
+            secondary: ""
+            icon: mdi:weather-night
+            badge_color: ""
+            layout: vertical
+            icon_color: lime
+            entity: input_button.good_night

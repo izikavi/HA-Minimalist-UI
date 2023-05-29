@@ -1,0 +1,105 @@
+title: "אורות"
+path: "lights"
+icon: "mdi:lightbulb-group-outline"
+cards:
+  - type: horizontal-stack
+    cards:
+    - type: "custom:button-card"
+      template: chip_back
+      variables:
+        ulm_chip_back_path: home
+    - type: "custom:button-card"
+      color_type: blank-card
+    - type: 'custom:button-card'
+      template: 'custom_chip_group_counter'
+      entity: light.all_light
+      variables:
+        custom_chip_group_counter_language_variables: EN
+        ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
+        ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
+        ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+
+  - type: custom:mushroom-light-card
+    entity: light.all_light
+    icon: mdi:lightbulb-group
+    icon_color: amber
+    primary_info: name
+    secondary_info: none
+    layout: vertical
+    name: כל האורות
+
+  - type: grid
+    square: false
+    columns: 2
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.living_room_light_light
+        icon: mdi:sofa
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: סלון
+      - type: custom:mushroom-light-card
+        entity: light.lights_balcony_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: משטח
+      - type: custom:mushroom-light-card
+        entity: light.lights_balcony_light_2
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: משרד
+      - type: custom:mushroom-light-card
+        entity: light.bedroom_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: חדר שינה
+        icon: mdi:bed-king
+      - type: custom:mushroom-light-card
+        entity: light.dinning_room_main_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: פינת אוכל
+        icon: mdi:table-chair
+      - type: custom:mushroom-light-card
+        entity: light.dinning_room_wall_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: פינת אוכל קטן
+        icon: mdi:coach-lamp
+      - type: custom:mushroom-light-card
+        entity: light.kitchen_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: מטבח
+        icon: mdi:countertop
+      - type: custom:mushroom-light-card
+        entity: light.kitchen_light_2
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        layout: vertical
+        name: מחסן
+        icon: mdi:wardrobe
+      - type: custom:mushroom-light-card
+        entity: light.ofri_room_light
+        icon_color: amber
+        primary_info: name
+        secondary_info: none
+        name: חדר של עופרי
+        icon: mdi:baby
+        layout: vertical
+        

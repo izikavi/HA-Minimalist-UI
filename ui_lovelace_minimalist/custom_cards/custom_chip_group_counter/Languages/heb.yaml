@@ -1,0 +1,18 @@
+---
+custom_chip_group_counter_language_variables:
+  variables:
+    custom_chip_group_counter_light_zero: "אורות כבויים"
+    custom_chip_group_counter_light_one: "אור אחד"
+    custom_chip_group_counter_light_multiple: "{count} אורות"
+
+    custom_chip_group_counter_media_player_zero: "אין נגן"
+    custom_chip_group_counter_media_player_one: "נגן אחד"
+    custom_chip_group_counter_media_player_multiple: "{count} נגנים"
+
+    custom_chip_group_counter_speaker_zero: "רמקולים כבויים"
+    custom_chip_group_counter_speaker_one: "רמקול אחד"
+    custom_chip_group_counter_speaker_multiple: "{count} רמקולים"
+
+    custom_chip_group_counter_television_zero: "טלוויזיות כבוייות"
+    custom_chip_group_counter_television_one: "טלוויזיה אחת"
+    custom_chip_group_counter_television_multiple: "{count} טלוויזיות"

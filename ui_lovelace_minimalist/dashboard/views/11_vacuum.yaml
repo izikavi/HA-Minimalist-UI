@@ -1,0 +1,512 @@
+title: "שואב אבק"
+path: "vacuum"
+icon: "mdi:robot-vacuum"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: home
+      
+  - square: false
+    columns: 1
+    type: custom:vacuum-card
+    entity: vacuum.roborock_s6
+    actions:
+      start:
+        service: automation.trigger
+        service_data:
+          entity_id: automation.run_vacuum_zone
+    cards:
+      - type: custom:vacuum-card
+        entity: vacuum.roborock_s6
+        image: /local/pictures/roborock.png
+        show_toolbar: false
+        language: he
+    show_toolbar: false
+    compact_view: false
+    show_name: true
+    show_status: true
+  - type: horizontal-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: auto
+              margin: '-4px -4px -8px -4px'
+            cards:
+              - type: custom:stack-in-card
+                mode: horizontal
+                keep:
+                  background: true
+                  border_radius: true
+                  margin: true
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: script.start_vacuuming_all_rooms_or_pause
+                    icon: mdi:play
+                    icon_color: green
+                    badge_icon: >-
+                      {{ 'mdi:robot-vacuum' if is_state('vacuum.roborock_s6',
+                      'cleaning') }}
+                    badge_color: '{{ ''green'' if is_state(''vacuum.roborock_s6'',''cleaning'') }}'
+                    tap_action:
+                      action: toggle
+                    layout: horizontal
+                  - type: custom:mushroom-template-card
+                    entity: script.vacuum_return_to_dock
+                    badge_icon: >-
+                      {{ 'mdi:reload' if is_state('vacuum.roborock_s6',
+                      'returning') }}
+                    badge_color: '{{ ''red'' if is_state(''vacuum.roborock_s6'',''returning'') }}'
+                    icon: mdi:home
+                    icon_color: light-blue
+                    layout: horizontal
+                    tap_action:
+                      action: toggle
+                  - type: custom:mushroom-template-card
+                    entity: input_boolean.map_mode_enabled
+                    icon: mdi:map-check
+                    icon_color: orange
+                    badge_icon: >-
+                      {{ 'mdi:arrow-up-bold' if
+                      is_state('input_boolean.map_mode_enabled', 'on') else
+                      'mdi:arrow-down-bold' }}
+                    badge_color: >-
+                      {{ 'red' if is_state('input_boolean.map_mode_enabled',
+                      'on') else 'green' }}
+                    layout: horizontal
+                    tap_action:
+                      action: toggle
+                  - type: custom:mushroom-template-card
+                    entity: input_boolean.vac_info
+                    icon: mdi:information
+                    layout: horizontal
+                    icon_color: lime
+                    badge_icon: >-
+                      {{ 'mdi:arrow-up-bold' if
+                      is_state('input_boolean.vac_info', 'on') else
+                      'mdi:arrow-down-bold' }}
+                    badge_color: |-
+                      {{ 'red' if is_state('input_boolean.vac_info', 'on') else
+                      'green' }}
+                  - type: custom:mushroom-template-card
+                    entity: input_boolean.vac_controls
+                    icon: mdi:camera-control
+                    layout: horizontal
+                    icon_color: purple
+                    badge_icon: >-
+                      {{ 'mdi:arrow-up-bold' if
+                      is_state('input_boolean.vac_controls', 'on') else
+                      'mdi:arrow-down-bold' }}
+                    badge_color: >-
+                      {{ 'red' if is_state('input_boolean.vac_controls', 'on')
+                      else 'green' }}
+                    tap_action:
+                      action: toggle
+  - type: conditional
+    conditions:
+      - entity: vacuum.roborock_s6
+        state: cleaning
+      - entity: vacuum.roborock_s6
+        state_not: idle
+    card:
+      type: custom:mushroom-template-card
+      primary: 'Currently vacuuming:'
+      secondary: '{{ states(''input_select.vacuum_rooms'') }}'
+      icon: mdi:timer-sand
+      badge_icon: ''
+      icon_color: blue
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_controls
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: auto
+                margin: '-4px -4px -8px -4px'
+              cards:
+                - type: custom:stack-in-card
+                  mode: horizontal
+                  keep:
+                    background: true
+                    border_radius: true
+                    margin: true
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_bedroom
+                      secondary: חדר שינה
+                      icon: mdi:bed
+                      icon_color: amber
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_second_bedroom
+                      secondary: חדר עופרי
+                      icon: mdi:cradle
+                      icon_color: amber
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      primary: ''
+                      secondary: סלון
+                      icon: mdi:sofa
+                      tap_action:
+                        action: toggle
+                      layout: horizontal
+                      entity: script.vacuum_living_room
+                      icon_color: amber
+                      double_tap_action:
+                        action: toggle
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_controls
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: auto
+                margin: '-4px -4px -8px -4px'
+              cards:
+                - type: custom:stack-in-card
+                  mode: horizontal
+                  keep:
+                    background: true
+                    border_radius: true
+                    margin: true
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_corridor
+                      secondary: מסדרון
+                      icon: mdi:door
+                      icon_color: orange
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      primary: ''
+                      secondary: מטבח
+                      icon: mdi:faucet-variant
+                      tap_action:
+                        action: toggle
+                      layout: horizontal
+                      entity: script.vacuum_kitchen
+                      icon_color: orange
+                      double_tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_storage
+                      secondary: מחסן
+                      icon: mdi:wardrobe
+                      icon_color: orange
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_controls
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: auto
+                margin: '-4px -4px -8px -4px'
+              cards:
+                - type: custom:stack-in-card
+                  mode: horizontal
+                  keep:
+                    background: true
+                    border_radius: true
+                    margin: true
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: ''
+                      secondary: שירותים
+                      icon: mdi:paper-roll
+                      tap_action:
+                        action: toggle
+                      layout: horizontal
+                      entity: script.vacuum_toilet
+                      icon_color: teal
+                      double_tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_bathroom
+                      secondary: מקלחת
+                      icon: mdi:shower
+                      icon_color: teal
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+                    - type: custom:mushroom-template-card
+                      entity: script.vacuum_daughter
+                      secondary: לא פעיל
+                      icon: mdi:disabble
+                      icon_color: teal
+                      layout: horizontal
+                      tap_action:
+                        action: toggle
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-template-card
+      primary: מצב סוללה
+      secondary: '{{ state_attr(''vacuum.roborock_s6'',''battery_level'') }}%'
+      icon: mdi:battery-30
+      icon_color: lime
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-template-card
+      primary: מצב סחבה
+      secondary: |-
+        {% if is_state('binary_sensor.roborock_s6_mop_attached','on') %}
+        מחוברת
+        {% else %}
+        מנותקת
+        {% endif %}
+      icon: mdi:pail
+      entity: binary_sensor.roborock_s6_mop_attached
+      icon_color: lime
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-entity-card
+      entity: sensor.roborock_s6_total_clean_count
+      name: זמן נקיון
+      icon: mdi:clock-alert
+      icon_color: lime
+      tap_action:
+        action: more-info
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-entity-card
+      entity: sensor.roborock_s6_last_clean_area
+      value_template: '{{ (value | float(0)) | round(1) }}'
+      name: שטח נקיון
+      icon_color: lime
+      icon: mdi:format-text-wrapping-overflow
+      tap_action:
+        action: more-info
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-entity-card
+      entity: sensor.roborock_s6_last_clean_end
+      name: זמן ניקיון אחרון
+      icon: mdi:clock-alert
+      icon_color: lime
+      tap_action:
+        action: more-info
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: custom:mushroom-entity-card
+      entity: sensor.roborock_s6_current_clean_duration
+      name: משך ניקיון אחרון
+      icon: mdi:clock-alert
+      icon_color: lime
+      tap_action:
+        action: more-info
+  - type: conditional
+    conditions:
+      - entity: input_boolean.vac_info
+        state: 'on'
+    card:
+      type: logbook
+      entities:
+        - script.vacuum_return_to_dock
+        - script.vacuum_bedroom
+        - script.vacuum_second_bedroom
+        - script.vacuum_storage
+        - script.vacuum_living_room
+        - script.vacuum_corridor
+        - script.vacuum_kitchen
+        - script.vacuum_toilet
+        - script.vacuum_bathroom
+        - script.vacuum_main_area
+        - script.vacuum_all_house
+        - automation.reset_vacuum_turn_off_mop_and_turn_to_max
+  - type: conditional
+    conditions:
+      - entity: input_boolean.map_mode_enabled
+        state: 'on'
+    card:
+      square: false
+      columns: 1
+      type: grid
+      cards:
+        - type: conditional
+          conditions:
+            - entity: input_boolean.map_mode_enabled
+              state: 'on'
+          card:
+            square: false
+            columns: 1
+            type: grid
+            cards:
+              - type: custom:xiaomi-vacuum-map-card
+                entity: vacuum.roborock_s6
+                rotate: 180
+                background_color: green
+                map_locked: true
+                language: he
+                map_source:
+                  camera: camera.roborock_s6
+                calibration_source:
+                  camera: true
+                vacuum_platform: default
+                map_modes:
+                  - template: vacuum_clean_segment
+                    predefined_selections:
+                      - id: '16'
+                        label:
+                          text: מסדרון
+                          x: 27525
+                          'y': 30375
+                          offset_y: 1
+                        outline:
+                          - - 26100
+                            - 29950
+                          - - 28950
+                            - 29950
+                          - - 28950
+                            - 30800
+                          - - 26100
+                            - 30800
+                      - id: '17'
+                        label:
+                          text: שירותים
+                          x: 26525
+                          'y': 31500
+                          offset_y: 3
+                        outline:
+                          - - 26200
+                            - 30850
+                          - - 26850
+                            - 30850
+                          - - 26850
+                            - 32150
+                          - - 26200
+                            - 32150
+                      - id: '18'
+                        label:
+                          text: מטבח
+                          x: 31650
+                          'y': 27625
+                          offset_y: 5
+                        outline:
+                          - - 30450
+                            - 26350
+                          - - 32850
+                            - 26350
+                          - - 32850
+                            - 28900
+                          - - 30450
+                            - 28900
+                      - id: '19'
+                        label:
+                          text: מקלחת
+                          x: 27420
+                          'y': 32720
+                        outline:
+                          - - 26550
+                            - 30850
+                          - - 28500
+                            - 30850
+                          - - 28500
+                            - 33800
+                          - - 26550
+                            - 33800
+                      - id: '20'
+                        label:
+                          text: סלון
+                          x: 26575
+                          'y': 27525
+                          offset_y: 1
+                        outline:
+                          - - 22650
+                            - 25150
+                          - - 30500
+                            - 25150
+                          - - 30500
+                            - 29900
+                          - - 22650
+                            - 29900
+                      - id: '21'
+                        label:
+                          text: מחסן
+                          x: 31850
+                          'y': 29425
+                        outline:
+                          - - 30350
+                            - 28900
+                          - - 33350
+                            - 28900
+                          - - 33350
+                            - 29950
+                          - - 30350
+                            - 29950
+                      - id: '22'
+                        label:
+                          text: חדר שינה
+                          x: 24575
+                          'y': 31850
+                        outline:
+                          - - 23100
+                            - 30000
+                          - - 26050
+                            - 30000
+                          - - 26050
+                            - 33700
+                          - - 23100
+                            - 33700
+                      - id: '23'
+                        label:
+                          text: החדר של עופרי
+                          x: 30125
+                          'y': 31825
+                        outline:
+                          - - 28650
+                            - 29950
+                          - - 31600
+                            - 29950
+                          - - 31600
+                            - 33700
+                          - - 28650
+                            - 33700
+                  - template: vacuum_clean_zone
+                  - template: vacuum_goto
+                  

@@ -1,0 +1,177 @@
+title: "עופרי"
+path: "ofri"
+icon: "mdi:baby"
+cards:
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: horizontal-stack
+        cards:
+        - type: "custom:button-card"
+          template: chip_back
+          variables:
+            ulm_chip_back_path: home
+        - type: "custom:button-card"
+          color_type: blank-card
+        - type: 'custom:button-card'
+          template: 'custom_chip_group_counter'
+          entity: light.ofri_group
+          variables:
+            custom_chip_group_counter_language_variables: EN
+            ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
+            ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
+            ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.ofri_boardlink_temperature
+                color: orange
+            name: טמפרטורה
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: orange
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.ofri_boardlink_humidity
+                color: '#1e90ff'
+            name: לחות
+            hours_to_show: 48
+            points_per_hour: 2
+            align_icon: state
+            show:
+              fill: fade
+              icon_adaptive_color: true
+              name: false
+            line_color: '#1e90ff'
+      - type: custom:mushroom-title-card
+        title: אורות
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.ofri_room_light
+            icon_color: amber
+            primary_info: name
+            secondary_info: none
+            layout: vertical
+            name: מרכזי
+      - type: custom:mushroom-title-card
+        title: שלטים
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: מזגן
+            secondary: ''
+            icon: mdi:air-conditioner
+            icon_color: '#865DFF'
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  browser_id: THIS
+                  title: מזגן
+                  content:
+                    square: false
+                    columns: 2
+                    type: grid
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: כיבוי
+                        secondary: ''
+                        icon: mdi:power
+                        layout: vertical
+                        icon_color: |-
+                          {% if is_state('','on') %}
+                          white
+                          {% else %}
+                          grey
+                          {% endif %}
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: 'off'
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: ''
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: heat
+                      - type: custom:mushroom-template-card
+                        primary: איוורור
+                        secondary: ''
+                        icon: mdi:fan
+                        icon_color: white
+                        layout: vertical
+                        multiline_secondary: false
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: fan
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: ''
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        multiline_secondary: false
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            delay_secs: 0.4
+                            hold_secs: 0
+                            device: AC
+                            command: cool
+            layout: vertical
+      - type: custom:mushroom-title-card
+        title: סקריפטים
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: placeholder
+            secondary: ''
+            icon: mdi:script
+            layout: vertical
+            icon_color: lime
