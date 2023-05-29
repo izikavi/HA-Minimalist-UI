@@ -1,4 +1,4 @@
-# HA-Minimalist-UI
+# Home Assistant Minimalist UI Dashboard
 
 This is my Minimalist dashboard for mobile.
 I set it for full screen without the need to scrool down.
