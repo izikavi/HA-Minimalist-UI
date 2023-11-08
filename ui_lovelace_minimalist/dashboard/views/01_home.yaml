@@ -96,7 +96,7 @@ cards:
           - type: "custom:button-card"
             template:
               - card_room
-              - purple_no_state
+              - turquoise_no_state.yaml
             name: מטבח
             icon: mdi:countertop
             label: '[[[ return states["sensor.living_room_temperature"].state + "°C | " + states["sensor.living_room_humidity"].state + "%" ]]]'
