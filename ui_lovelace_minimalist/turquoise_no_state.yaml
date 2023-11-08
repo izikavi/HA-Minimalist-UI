@@ -1,0 +1,11 @@
+---
+turquoise_no_state:
+  styles:
+    icon:
+      - color: "rgba(48, 213, 200, 1)"
+    label:
+      - color: "rgba(48, 213, 200, 1)"
+    name:
+      - color: "rgba(48, 213, 200, 1)"
+    img_cell:
+      - background-color: "rgba(48, 213, 200, 0.2)"
