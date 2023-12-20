@@ -8,20 +8,23 @@ cards:
     cards:
       - type: horizontal-stack
         cards:
-        - type: "custom:button-card"
-          template: chip_back
-          variables:
-            ulm_chip_back_path: home
-        - type: "custom:button-card"
-          color_type: blank-card
-        - type: 'custom:button-card'
-          template: 'custom_chip_group_counter'
-          entity: light.ofri_group
-          variables:
-            custom_chip_group_counter_language_variables: EN
-            ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
-            ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
-            ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+          - type: "custom:button-card"
+            template: chip_back
+            variables:
+              ulm_chip_back_path: home
+          - type: "custom:button-card"
+            color_type: blank-card
+          #- type: custom:mushroom-title-card
+          #  title: עופרי
+          #  alignment: center
+          - type: "custom:button-card"
+            template: "custom_chip_group_counter"
+            entity: light.ofri_group
+            variables:
+              custom_chip_group_counter_language_variables: EN
+              ulm_custom_chip_group_counter_icon_zero: "mdi:lightbulb-multiple-off"
+              ulm_custom_chip_group_counter_icon_one: "mdi:lightbulb-on"
+              ulm_custom_chip_group_counter_icon_multiple: "mdi:lightbulb-group"
 
       - type: horizontal-stack
         cards:
@@ -41,7 +44,7 @@ cards:
           - type: custom:mini-graph-card
             entities:
               - entity: sensor.ofri_boardlink_humidity
-                color: '#1e90ff'
+                color: "#1e90ff"
             name: לחות
             hours_to_show: 48
             points_per_hour: 2
@@ -50,7 +53,7 @@ cards:
               fill: fade
               icon_adaptive_color: true
               name: false
-            line_color: '#1e90ff'
+            line_color: "#1e90ff"
       - type: custom:mushroom-title-card
         title: אורות
         alignment: center
@@ -70,9 +73,9 @@ cards:
         cards:
           - type: custom:mushroom-template-card
             primary: מזגן
-            secondary: ''
+            secondary: ""
             icon: mdi:air-conditioner
-            icon_color: '#865DFF'
+            icon_color: "#865DFF"
             tap_action:
               action: fire-dom-event
               browser_mod:
@@ -82,12 +85,11 @@ cards:
                   title: מזגן
                   content:
                     square: false
-                    columns: 2
                     type: grid
                     cards:
                       - type: custom:mushroom-template-card
                         primary: כיבוי
-                        secondary: ''
+                        secondary: ""
                         icon: mdi:power
                         layout: vertical
                         icon_color: |-
@@ -106,12 +108,12 @@ cards:
                             delay_secs: 0.4
                             hold_secs: 0
                             device: AC
-                            command: 'off'
+                            command: "off"
                       - type: custom:mushroom-template-card
-                        primary: חימום
-                        secondary: ''
-                        icon: mdi:white-balance-sunny
-                        icon_color: red
+                        primary: קירור
+                        secondary: לילה
+                        icon: mdi:weather-night
+                        icon_color: blue
                         layout: vertical
                         fill_container: false
                         tap_action:
@@ -121,13 +123,11 @@ cards:
                             entity_id: remote.ofri_boardlink
                           data:
                             num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
                             device: AC
-                            command: heat
+                            command: cool_night
                       - type: custom:mushroom-template-card
                         primary: איוורור
-                        secondary: ''
+                        secondary: ""
                         icon: mdi:fan
                         icon_color: white
                         layout: vertical
@@ -145,12 +145,11 @@ cards:
                             device: AC
                             command: fan
                       - type: custom:mushroom-template-card
-                        primary: קירור
-                        secondary: ''
-                        icon: mdi:snowflake
-                        icon_color: blue
+                        primary: חימום
+                        secondary: חלש
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
                         layout: vertical
-                        multiline_secondary: false
                         fill_container: false
                         tap_action:
                           action: call-service
@@ -159,10 +158,88 @@ cards:
                             entity_id: remote.ofri_boardlink
                           data:
                             num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
                             device: AC
-                            command: cool
+                            command: heat_low
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: ביוני
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: heat_med
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: חזק
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: heat_high
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: חלש
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_low
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: ביוני
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_med
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: חזק
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.ofri_boardlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_high
             layout: vertical
       - type: custom:mushroom-title-card
         title: סקריפטים
@@ -170,8 +247,10 @@ cards:
       - type: horizontal-stack
         cards:
           - type: custom:mushroom-template-card
-            primary: placeholder
-            secondary: ''
-            icon: mdi:script
+            primary: מקלחת
+            secondary: ""
+            icon: mdi:bathtub
             layout: vertical
             icon_color: lime
+            
+            entity: input_button.ofri_bath

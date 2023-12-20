@@ -9,6 +9,7 @@ cards:
       ulm_language: "he-IL"
       ulm_card_esh_welcome_collapse: input_boolean.minimalist_dropdown
       ulm_weather: "weather.openweathermap"
+      heb_date: sensor.jewish_calendar_date_2
       entity_1:
         nav: "vacuum"
         icon: "mdi:robot-vacuum"
@@ -30,9 +31,9 @@ cards:
         name: שרתים
         color: "purple"
       entity_5:
-        nav: "network"
+        nav: "plugs"
         icon: "mdi:power-plug"
-        name: שעקים
+        name: שקעים
         color: "red"
 
   - type: horizontal-stack
@@ -45,8 +46,8 @@ cards:
           ulm_card_person_zone1: zone.work
           ulm_card_person_zone2: zone.gym
           ulm_multiline: false
-          ulm_card_person_battery_entity: sensor.pixel_battery_level
-          ulm_card_person_battery_state_entity: sensor.pixel_battery_state
+          ulm_card_person_battery_entity: sensor.oneplus_a6013_battery_level
+          ulm_card_person_battery_state_entity: sensor.oneplus_a6013_battery_state
           ulm_card_person_commute_entity: sensor.izik_waze_travel_time
       - type: "custom:button-card"
         template: card_person_info
@@ -56,9 +57,19 @@ cards:
           ulm_card_person_zone1: zone.work
           ulm_card_person_zone2: zone.gym
           ulm_multiline: false
-          ulm_card_person_battery_entity: sensor.iphone_battery_level
-          ulm_card_person_battery_state_entity: sensor.iphone_battery_state
+          ulm_card_person_battery_entity: sensor.h_iphone_shl_izik_battery_level
+          ulm_card_person_battery_state_entity: sensor.h_iphone_shl_izik_battery_state
           ulm_card_person_commute_entity: sensor.noy_waze_travel_time
+
+  #- type: horizontal-stack
+  #  cards:
+  #    - type: "custom:button-card"
+  #      color_type: blank-card
+  #    - type: "custom:button-card"
+  #      template: card_title
+  #      name: חדרים
+  #    - type: "custom:button-card"
+  #      color_type: blank-card
 
   - type: horizontal-stack
     cards:
@@ -96,7 +107,7 @@ cards:
           - type: "custom:button-card"
             template:
               - card_room
-              - turquoise_no_state.yaml
+              - turquoise_no_state
             name: מטבח
             icon: mdi:countertop
             label: '[[[ return states["sensor.living_room_temperature"].state + "°C | " + states["sensor.living_room_humidity"].state + "%" ]]]'
@@ -112,6 +123,18 @@ cards:
                   action: toggle
               entity_2:
                 entity_id: light.kitchen_light_2
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_3:
+                entity_id: light.dinning_room_main_light
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_4:
+                entity_id: light.dinning_room_wall_light
                 templates:
                   - yellow_on
                 tap_action:
@@ -152,3 +175,41 @@ cards:
                   - yellow_on
                 tap_action:
                   action: toggle
+  # - type: "custom:button-card"
+  #   template: "card_scenes_welcome"
+  #   variables:
+  #     entity_1:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "blue"
+  #     entity_2:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "red"
+  #     entity_3:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "green"
+  #     entity_4:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "purple"
+  #     entity_5:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "yellow"
+  #     entity_6:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "pink"
+  #     entity_7:
+  #       entity_id: "<YOUR_ENTITY>"
+  #       icon: "mdi:YOUR_ICON" #OPTIONAL
+  #       name: "YOUR_NAME" #OPTIONAL
+  #       color: "yellow"

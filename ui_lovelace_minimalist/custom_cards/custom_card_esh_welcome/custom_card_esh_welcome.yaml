@@ -100,7 +100,7 @@ card_esh_welcome:
         template: "card_esh_welcome_topbar"
         variables:
           ulm_card_esh_welcome_collapse: "[[[ return variables.ulm_card_esh_welcome_collapse ]]]"
-          ulm_weather: "[[[ return variables.ulm_weather]]]"
+          ulm_weather: "[[[ return variables.ulm_weather ]]]"
         styles:
           card:
             - border-radius: "none"
@@ -128,7 +128,7 @@ card_esh_welcome:
             } else {
               welcome = variables.ulm_hello;
             }
-            return welcome + ', ' + '   <br>' + user.name + '!';
+            return welcome + ', ' + '   ' + user.name + '!';
           ]]]
         styles:
           name:
@@ -427,8 +427,8 @@ card_esh_welcome_topbar:
   show_label: false
   styles:
     grid:
-      - grid-template-areas: "'item1 item2 item3'"
-      - grid-template-columns: "1fr 7fr 1fr"
+      - grid-template-areas: "'item1 item2 item21 item3'"
+      - grid-template-columns: "1fr 5fr 5fr 1fr"
       - grid-template-rows: "min-content"
       - justify-items: "center"
     card:
@@ -485,18 +485,19 @@ card_esh_welcome_topbar:
                     return "var(--box-shadow)";
                   }
                 ]]]
-    item3:
+    item21:
       card:
         type: "custom:button-card"
-        tap_action:
-          action: "navigate"
-          navigation_path: "/config/dashboard"
-        template: "chip_mdi_icon_only"
+        template: "chip_mdi_icon_state"
         variables:
-          ulm_chip_mdi_icon_only_icon: "mdi:cog-outline"
+          ulm_chip_mdi_icon_state_entity: sensor.jewish_calendar_short
+          ulm_chip_mdi_icon_state_icon: mdi:star-david
+          ulm_chip_mdi_icon_state_icon_color: rgba(0,191,255,1)
+        tap_action:
+          action: "more-info"
         styles:
           card:
-            - align-self: "end"
+            - width: "100px"
             - box-shadow: >
                 [[[
                   if (hass.themes.darkMode){
@@ -505,3 +506,98 @@ card_esh_welcome_topbar:
                     return "var(--box-shadow)";
                   }
                 ]]]
+    item3:
+      card:
+        type: "custom:button-card"
+        template: "chips"
+        entity: "input_boolean.izik_notify"
+        # entity: >
+        # [[[
+        #   if ("Izik" == user.name) {
+        #     return "input_boolean.izik_notify";
+        #   } else {
+        #     return "input_boolean.noy_notify";
+        #   }
+        # ]]]
+        icon: "mdi:message-off"
+        show_icon: true
+        styles:
+          grid:
+            - grid-template-areas: "'i'"
+          card:
+            - box-shadow: >
+                [[[
+                  if (hass.themes.darkMode){
+                    return "0px 2px 4px 0px rgba(0,0,0,0.80)";
+                  } else {
+                    return "var(--box-shadow)";
+                  }
+                ]]]
+        state:
+          - value: "on"
+            icon: "mdi:message-check"
+            styles:
+              icon:
+                - color: "rgba(55, 149, 189, 1)"
+        tap_action:
+          action: "call-service"
+          service: "input_boolean.toggle"
+          service_data:
+            entity_id: "input_boolean.izik_notify"
+        # type: "custom:button-card"
+        # #tap_action:
+        # #  action: "navigate"
+        # #  navigation_path: "/config/dashboard"
+        # template: "chip_mdi_icon_only"
+        # tap_action:
+        #   action: "call-service"
+        #   service: "input_boolean.toggle"
+        #   service_data:
+        #     entity_id: "input_boolean.izik_notify"
+        #     # "[[[
+        #     #   if ("Izik" == user.name) {
+        #     #     if (input_boolean.izik_notify)
+        #     #       return "mdi:message-check";
+        #     #   } else {
+        #     #       return "mdi:message-off";
+        #     #   }
+        #     #   ]]]"
+        # variables:
+        #   ulm_chip_mdi_icon_only_icon_color: rgb(var(--color-theme))
+        #   ulm_chip_mdi_icon_only_icon: "mdi:message-off"
+        #   ulm_chip_mdi_icon_only_entity: "input_boolean.izik_notify"
+        # icon: "mdi:message-off"
+        # # icon: |
+        # #   [[[
+        # #     if ("Izik" == user.name) {
+        # #       #if ('on' == states['input_boolean.izik_notify'].state) {
+        # #         return "mdi:message-check";
+        # #       } else {
+        # #         return "mdi:message-off";
+        # #       }
+        # #     #} else {
+        # #     #  if ('on' == states["input_boolean.noy_notify"].state) {
+        # #     #    return "mdi:message-check";
+        # #     #  } else {
+        # #     #    return "mdi:message-off";
+        # #     #  }
+        # #     #}
+        # #   ]]]
+        #         # - color: "rgba(55, 149, 189, 1)"
+        # styles:
+        #   card:
+        #     - align-self: "end"
+        #     - box-shadow: >
+        #         [[[
+        #           if (hass.themes.darkMode){
+        #             return "0px 2px 4px 0px rgba(0,0,0,0.80)";
+        #           } else {
+        #             return "var(--box-shadow)";
+        #           }
+        #         ]]]
+        #   state:
+        #   - value: "on"
+        #     icon: "mdi:chevron-down"
+        #     styles:
+        #       icon:
+        #         - color: "rgba(55, 149, 189, 1)"

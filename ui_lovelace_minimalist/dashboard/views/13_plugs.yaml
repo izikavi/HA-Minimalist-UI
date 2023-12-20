@@ -1,0 +1,20 @@
+title: "שקעים"
+path: "plugs"
+icon: "mdi:power-plug"
+cards:
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          uml_chip_back_path: home
+      - type: "custom:button-card"
+        template: custom_card_more_power_outlet
+        #variables:
+          #custom_card_more_power_outlet_power_sensor: sensor.immersion_heater_power
+          #custom_card_more_power_outlet_energy_sensor: sensor.immersion_heater_energy_daily
+          #custom_card_more_power_outlet_time_sensor: sensor.time_immersion_heater_heating
+        entity: switch.living_room_ac
+        name: Test

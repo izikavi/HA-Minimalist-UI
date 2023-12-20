@@ -14,14 +14,14 @@ cards:
               ulm_chip_back_path: home
           - type: "custom:button-card"
             color_type: blank-card
-          - type: 'custom:button-card'
-            template: 'custom_chip_group_counter'
+          - type: "custom:button-card"
+            template: "custom_chip_group_counter"
             entity: light.bedroom_lights_count
             variables:
               custom_chip_group_counter_language_variables: heb
-              ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
-              ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
-              ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+              ulm_custom_chip_group_counter_icon_zero: "mdi:lightbulb-multiple-off"
+              ulm_custom_chip_group_counter_icon_one: "mdi:lightbulb-on"
+              ulm_custom_chip_group_counter_icon_multiple: "mdi:lightbulb-group"
       - type: horizontal-stack
         cards:
           - type: custom:mini-graph-card
@@ -116,11 +116,8 @@ cards:
                           action: call-service
                           service: remote.send_command
                           data:
-                            num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
-                            device: TV
-                            command: power
+                            command: "power"
+                            device: "TV"
                           target:
                             entity_id: remote.bedroom_broadlink
                       - type: custom:mushroom-template-card
@@ -191,12 +188,8 @@ cards:
                           target:
                             entity_id: remote.bedroom_broadlink
                         icon_color: white
-                      - type: custom:mushroom-template-card
-                        primary: ""
-                        secondary: ""
-                        icon: mdi
-                        layout: horizontal
-                        icon_color: white
+                      - type: custom:button-card
+                        color_type: blank-card
                       - type: custom:mushroom-template-card
                         primary: ""
                         secondary: ""
@@ -348,7 +341,6 @@ cards:
                   title: מזגן
                   content:
                     square: false
-                    columns: 2
                     type: grid
                     cards:
                       - type: custom:mushroom-template-card
@@ -374,10 +366,10 @@ cards:
                             device: AC
                             command: "off"
                       - type: custom:mushroom-template-card
-                        primary: חימום
-                        secondary: ""
-                        icon: mdi:white-balance-sunny
-                        icon_color: red
+                        primary: קירור
+                        secondary: לילה
+                        icon: mdi:weather-night
+                        icon_color: blue
                         layout: vertical
                         fill_container: false
                         tap_action:
@@ -387,10 +379,8 @@ cards:
                             entity_id: remote.bedroom_broadlink
                           data:
                             num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
                             device: AC
-                            command: heat
+                            command: cool_night
                       - type: custom:mushroom-template-card
                         primary: איוורור
                         secondary: ""
@@ -411,12 +401,11 @@ cards:
                             device: AC
                             command: fan
                       - type: custom:mushroom-template-card
-                        primary: קירור
-                        secondary: ""
-                        icon: mdi:snowflake
-                        icon_color: blue
+                        primary: חימום
+                        secondary: חלש
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
                         layout: vertical
-                        multiline_secondary: false
                         fill_container: false
                         tap_action:
                           action: call-service
@@ -425,10 +414,88 @@ cards:
                             entity_id: remote.bedroom_broadlink
                           data:
                             num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
                             device: AC
-                            command: cool
+                            command: heat_low
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: ביוני
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: heat_med
+                      - type: custom:mushroom-template-card
+                        primary: חימום
+                        secondary: חזק
+                        icon: mdi:white-balance-sunny
+                        icon_color: red
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: heat_high
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: חלש
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_low
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: ביוני
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_med
+                      - type: custom:mushroom-template-card
+                        primary: קירור
+                        secondary: חזק
+                        icon: mdi:snowflake
+                        icon_color: blue
+                        layout: vertical
+                        fill_container: false
+                        tap_action:
+                          action: call-service
+                          service: remote.send_command
+                          target:
+                            entity_id: remote.bedroom_broadlink
+                          data:
+                            num_repeats: 1
+                            device: AC
+                            command: cool_high
             layout: vertical
           - type: custom:mushroom-template-card
             primary: סטרימר
@@ -663,25 +730,9 @@ cards:
       - type: horizontal-stack
         cards:
           - type: custom:mushroom-template-card
-            primary: לילה טוב עופרי
+            primary: placeholder
             secondary: ""
             icon: mdi:lightbulb-night
             layout: vertical
             icon_color: lime
             entity: input_boolean.night_ofri
-          - type: custom:mushroom-template-card
-            primary: ערב סרט
-            secondary: ""
-            icon: mdi:movie-open
-            badge_color: ""
-            layout: vertical
-            icon_color: lime
-            entity: input_button.movie_night
-          - type: custom:mushroom-template-card
-            primary: ערב סרט
-            secondary: ""
-            icon: mdi:weather-night
-            badge_color: ""
-            layout: vertical
-            icon_color: lime
-            entity: input_button.good_night

@@ -1,0 +1,177 @@
+title: LVG-AC
+path: lvg_ac
+icon: mdi:air-conditioner
+subview: true
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: |-
+              {% if is_state('input_boolean.living_room_ac','on') %}
+                דולק
+              {% else %}
+                כבוי
+              {% endif %}
+            secondary: ""
+            icon: mdi:power
+            entity: input_boolean.living_room_ac
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_boolean.living_room_ac','on') %}
+                cyan
+              {% else %}
+                grey
+              {% endif %}
+          - type: custom:mushroom-template-card
+            primary: שנה תוכנית
+            secondary: ""
+            icon: mdi:refresh
+            entity: input_button.living_room_ac
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_boolean.living_room_ac','on') %}
+                amber
+              {% else %}
+                grey
+              {% endif %}
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: קירור
+            secondary: ""
+            icon: mdi:snowflake
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_mode', 'cool') %}
+                blue
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_mode
+              data:
+                option: cool
+          - type: custom:mushroom-template-card
+            primary: חימום
+            secondary: ""
+            icon: mdi:weather-sunny
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_mode', 'heat') %}
+                red
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_mode
+              data:
+                option: heat
+          - type: custom:mushroom-template-card
+            primary: איוורור
+            secondary: ""
+            icon: mdi:fan
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_mode', 'fan') %}
+                lime
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_mode
+              data:
+                option: fan
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: חלש
+            secondary: ""
+            icon: mdi:fan-speed-1
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_fan', 'low') %}
+                white
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_fan
+              data:
+                option: low
+          - type: custom:mushroom-template-card
+            primary: בינוני
+            secondary: ""
+            icon: mdi:fan-speed-2
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_fan', 'med') %}
+                white
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_fan
+              data:
+                option: med
+          - type: custom:mushroom-template-card
+            primary: חזק
+            secondary: ""
+            icon: mdi:fan-speed-3
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_fan', 'high') %}
+                white
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_fan
+              data:
+                option: high
+          - type: custom:mushroom-template-card
+            primary: אוטו
+            secondary: ""
+            icon: mdi:fan-auto
+            layout: vertical
+            icon_color: |-
+              {% if is_state('input_select.living_room_ac_fan', 'auto') %}
+                white
+              {% else %}
+                gre
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: input_select.select_option
+              target:
+                entity_id: input_select.living_room_ac_fan
+              data:
+                option: auto
+      - type: custom:mushroom-number-card
+        entity: input_number.living_room_ac_temp
+        name: טמפרטורה
+        icon_color: light-green
+        fill_container: true
+        display_mode: buttons
+        icon_type: none
+        layout: vertical
+        secondary_info: none

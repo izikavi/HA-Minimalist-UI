@@ -239,7 +239,6 @@ custom_card_nik_nas:
                 - border: "2px solid var(--google-grey)"
             tap_action:
               action: "more-info"
-
           - type: "custom:button-card"
             template: "card_generic_swap"
             entity: "[[[ return variables.entity_4.entity_id ]]]"

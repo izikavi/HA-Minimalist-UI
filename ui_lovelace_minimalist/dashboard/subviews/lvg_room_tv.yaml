@@ -1,0 +1,256 @@
+title: LVG-TV
+path: lvg_tv
+icon: mdi:television-classic
+subview: true
+theme: minimalist-desktop
+cards:
+  - type: grid
+    square: true
+    columns: 3
+    cards:
+      - type: custom:mushroom-template-card
+        primary: CH
+        secondary: ""
+        icon: mdi:arrow-up-bold-box
+        layout: vertical
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: ch_up
+          target:
+            entity_id: remote.living_room
+        icon_color: white
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:power
+        icon_color: >-
+          {% set tv = states('sensor.living_room_tv_electric') | float(0) %}
+          {% if 2 < tv %}
+          yellow
+          {% else %}
+          grey
+          {% endif %}
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: power
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:volume-plus
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: vol_up
+          target:
+            entity_id: remote.living_room
+        icon_color: white
+      - type: custom:mushroom-template-card
+        primary: CH
+        secondary: ""
+        icon: mdi:arrow-down-bold-box
+        icon_color: white
+        layout: vertical
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: ch_down
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:volume-mute
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: mute
+          target:
+            entity_id: remote.living_room
+        icon_color: red
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:volume-minus
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: vol_down
+          target:
+            entity_id: remote.living_room
+        icon_color: white
+      - type: "custom:button-card"
+        color_type: blank-card
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:arrow-up-bold-outline
+        icon_color: white
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: up
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: SRC
+        secondary: ""
+        icon: mdi:import
+        icon_color: white
+        layout: vertical
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: source
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:arrow-left-bold-outline
+        icon_color: white
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: left
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:square-rounded
+        icon_color: white
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: ok
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:arrow-right-bold-outline
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: right
+          target:
+            entity_id: remote.living_room
+        icon_color: white
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:menu
+        icon_color: white
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: menu
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: mdi:arrow-down-bold-outline
+        icon_color: white
+        layout: horizontal
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: down
+          target:
+            entity_id: remote.living_room
+      - type: custom:mushroom-template-card
+        primary: Exit
+        secondary: ""
+        icon: mdi:location-exit
+        layout: vertical
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          data:
+            num_repeats: 1
+            delay_secs: 0.4
+            hold_secs: 0
+            device: TV
+            command: exit
+          target:
+            entity_id: remote.living_room
+        icon_color: white

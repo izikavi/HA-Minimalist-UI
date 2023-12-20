@@ -14,14 +14,23 @@ cards:
               ulm_chip_back_path: home
           - type: "custom:button-card"
             color_type: blank-card
+          #- type: custom:mushroom-title-card
+          #  title: סלון
+          #  alignment: center
+          # - type: "custom:button-card"
+          #   template: chip_mdi_icon_state
+          #   variables:
+          #     ulm_chip_mdi_icon_state_icon: "mdi:lightbulb-group"
+          #     ulm_chip_mdi_icon_state_icon_color: orange
+          #     ulm_chip_mdi_icon_state_entity: sensor.living_room_lights_count
           - type: "custom:button-card"
             template: "custom_chip_group_counter"
             entity: light.living_room_lights
             variables:
               custom_chip_group_counter_language_variables: EN
-              ulm_custom_chip_group_counter_icon_zero: 'mdi:lightbulb-multiple-off'
-              ulm_custom_chip_group_counter_icon_one: 'mdi:lightbulb-on'
-              ulm_custom_chip_group_counter_icon_multiple: 'mdi:lightbulb-group'
+              ulm_custom_chip_group_counter_icon_zero: "mdi:lightbulb-multiple-off"
+              ulm_custom_chip_group_counter_icon_one: "mdi:lightbulb-on"
+              ulm_custom_chip_group_counter_icon_multiple: "mdi:lightbulb-group"
       - type: horizontal-stack
         cards:
           - type: custom:mini-graph-card
@@ -84,6 +93,15 @@ cards:
         alignment: center
       - type: horizontal-stack
         cards:
+          # - type: custom:mushroom-template-card
+          #   primary: טלוויזיה
+          #   secondary: ""
+          #   icon: mdi:television-classic
+          #   icon_color: "#865DFF"
+          #   layout: vertical
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /ui-lovelace-minimalist/lvg_tv
           - type: custom:mushroom-template-card
             primary: טלוויזיה
             secondary: ""
@@ -209,12 +227,14 @@ cards:
                           target:
                             entity_id: remote.living_room
                         icon_color: white
-                      - type: custom:mushroom-template-card
-                        primary: ""
-                        secondary: ""
-                        icon: mdi
-                        layout: horizontal
-                        icon_color: white
+                      #  - type: custom:mushroom-template-card
+                      #    primary: ""
+                      #    secondary: ""
+                      #    icon: mdi
+                      #    layout: horizontal
+                      #    icon_color: white
+                      - type: "custom:button-card"
+                        color_type: blank-card
                       - type: custom:mushroom-template-card
                         primary: ""
                         secondary: ""
@@ -352,6 +372,15 @@ cards:
                             entity_id: remote.living_room
                         icon_color: white
             layout: vertical
+          # - type: custom:mushroom-template-card
+          #   primary: מזגן
+          #   secondary: ""
+          #   icon: mdi:air-conditioner
+          #   icon_color: "#865DFF"
+          #   layout: vertical
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /ui-lovelace-minimalist/lvg_ac
           - type: custom:mushroom-template-card
             primary: מזגן
             secondary: ""
@@ -365,88 +394,178 @@ cards:
                   browser_id: THIS
                   title: מזגן
                   content:
-                    square: false
-                    columns: 2
-                    type: grid
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: custom:mushroom-template-card
-                        primary: כיבוי
-                        secondary: ""
-                        icon: mdi:power
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: |-
+                              {% if is_state('input_boolean.living_room_ac','on') %}
+                                דולק
+                              {% else %}
+                                כבוי
+                              {% endif %}
+                            secondary: ""
+                            icon: mdi:power
+                            entity: input_boolean.living_room_ac
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_boolean.living_room_ac','on') %}
+                                cyan
+                              {% else %}
+                                grey
+                              {% endif %}
+                          - type: custom:mushroom-template-card
+                            primary: שנה תוכנית
+                            secondary: ""
+                            icon: mdi:refresh
+                            entity: input_button.living_room_ac
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_boolean.living_room_ac','on') %}
+                                amber
+                              {% else %}
+                                grey
+                              {% endif %}
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: קירור
+                            secondary: ""
+                            icon: mdi:snowflake
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_mode', 'cool') %}
+                                blue
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_mode
+                              data:
+                                option: cool
+                          - type: custom:mushroom-template-card
+                            primary: חימום
+                            secondary: ""
+                            icon: mdi:weather-sunny
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_mode', 'heat') %}
+                                red
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_mode
+                              data:
+                                option: heat
+                          - type: custom:mushroom-template-card
+                            primary: איוורור
+                            secondary: ""
+                            icon: mdi:fan
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_mode', 'fan') %}
+                                lime
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_mode
+                              data:
+                                option: fan
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: חלש
+                            secondary: ""
+                            icon: mdi:fan-speed-1
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_fan', 'low') %}
+                                white
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_fan
+                              data:
+                                option: low
+                          - type: custom:mushroom-template-card
+                            primary: בינוני
+                            secondary: ""
+                            icon: mdi:fan-speed-2
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_fan', 'med') %}
+                                white
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_fan
+                              data:
+                                option: med
+                          - type: custom:mushroom-template-card
+                            primary: חזק
+                            secondary: ""
+                            icon: mdi:fan-speed-3
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_fan', 'high') %}
+                                white
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_fan
+                              data:
+                                option: high
+                          - type: custom:mushroom-template-card
+                            primary: אוטו
+                            secondary: ""
+                            icon: mdi:fan-auto
+                            layout: vertical
+                            icon_color: |-
+                              {% if is_state('input_select.living_room_ac_fan', 'auto') %}
+                                white
+                              {% else %}
+                                gre
+                              {% endif %}
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              target:
+                                entity_id: input_select.living_room_ac_fan
+                              data:
+                                option: auto
+                      - type: custom:mushroom-number-card
+                        entity: input_number.living_room_ac_temp
+                        name: טמפרטורה
+                        icon_color: light-green
+                        fill_container: true
+                        display_mode: buttons
+                        icon_type: none
                         layout: vertical
-                        icon_color: |-
-                          {% if is_state('','on') %}
-                          white
-                          {% else %}
-                          grey
-                          {% endif %}
-                        tap_action:
-                          action: call-service
-                          service: remote.send_command
-                          target:
-                            entity_id: remote.living_room
-                          data:
-                            num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
-                            device: AC
-                            command: "off"
-                      - type: custom:mushroom-template-card
-                        primary: חימום
-                        secondary: ""
-                        icon: mdi:white-balance-sunny
-                        icon_color: red
-                        layout: vertical
-                        fill_container: false
-                        tap_action:
-                          action: call-service
-                          service: remote.send_command
-                          target:
-                            entity_id: remote.living_room
-                          data:
-                            num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
-                            device: AC
-                            command: heat
-                      - type: custom:mushroom-template-card
-                        primary: איוורור
-                        secondary: ""
-                        icon: mdi:fan
-                        icon_color: white
-                        layout: vertical
-                        multiline_secondary: false
-                        fill_container: false
-                        tap_action:
-                          action: call-service
-                          service: remote.send_command
-                          target:
-                            entity_id: remote.living_room
-                          data:
-                            num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
-                            device: AC
-                            command: fan
-                      - type: custom:mushroom-template-card
-                        primary: קירור
-                        secondary: ""
-                        icon: mdi:snowflake
-                        icon_color: blue
-                        layout: vertical
-                        multiline_secondary: false
-                        fill_container: false
-                        tap_action:
-                          action: call-service
-                          service: remote.send_command
-                          target:
-                            entity_id: remote.living_room
-                          data:
-                            num_repeats: 1
-                            delay_secs: 0.4
-                            hold_secs: 0
-                            device: AC
-                            command: cool
+                        secondary_info: none
             layout: vertical
           - type: custom:mushroom-template-card
             primary: סטרימר

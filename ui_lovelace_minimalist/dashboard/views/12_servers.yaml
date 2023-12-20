@@ -12,11 +12,14 @@ cards:
             template: chip_back
             variables:
               ulm_chip_back_path: home
+          #- type: custom:mushroom-title-card
+          #  title: שרתים
+          #  alignment: center
       - type: horizontal-stack
         cards:
           - type: custom:mini-graph-card
             entities:
-              - entity: sensor.servers_room_temperature
+              - entity: sensor.living_room_temperature
                 color: orange
             name: טמפרטורה
             hours_to_show: 48
@@ -29,7 +32,7 @@ cards:
             line_color: orange
           - type: custom:mini-graph-card
             entities:
-              - entity: sensor.servers_room_humidity
+              - entity: sensor.living_room_humidity
                 color: "#1e90ff"
             name: LIVING ROOM
             hours_to_show: 48
@@ -47,26 +50,62 @@ cards:
           graph_span: "1d"
           chart_type: "radialBar"
           entity_1:
-            entity_id: "sensor.nextcloud_nextcloud_system_version"
-            icon: ''
+            entity_id: "sensor.nas_cpu_temperature"
+            icon: "mdi:thermometer"
             name: "Temp"
             color: "yellow"
             max_value: 100
           entity_2:
-            entity_id: "sensor.nextcloud_nextcloud_system_mem_total"
-            icon: ''
-            name: "Memory"
+            entity_id: "sensor.nas_cpu_usage"
+            icon: "mdi:cpu-64-bit"
+            name: "Uasge"
             color: "blue"
             max_value: 100
           entity_3:
-            entity_id: "sensor.nextcloud_nextcloud_system_cpuload"
-            icon: ''
-            name: "CPU"
+            entity_id: "sensor.nas_memory"
+            icon: "mdi:memory"
+            name: "Mem"
             color: "green"
-            max_value: 100
+            max_value: 15600
           entity_4:
-            entity_id: "sensor.nextcloud_nextcloud_system_freespace"
+            entity_id: "sensor.nas_disk"
             icon: "mdi:harddisk"
             name: "Disk"
             color: "red"
-        
+            max_value: 100
+          # entity_5:
+          #   entity_id: "sensor.nas_speed"
+          #   icon: ""
+          #   name: "Net"
+          #   color: "orange"
+      - type: "custom:button-card"
+        template: "custom_card_nik_nas"
+        entity: input_boolean.test
+        variables:
+          icon: mdi:raspberry-pi
+          graph_span: "1d"
+          chart_type: "radialBar"
+          entity_1:
+            entity_id: "sensor.processor_temperature"
+            icon: "mdi:thermometer"
+            name: "Temp"
+            color: "yellow"
+            max_value: 100
+          entity_2:
+            entity_id: "sensor.processor_use_percent"
+            icon: "mdi:cpu-64-bit"
+            name: "Uasge"
+            color: "blue"
+            max_value: 100
+          entity_3:
+            entity_id: "sensor.memory_use"
+            icon: "mdi:memory"
+            name: "Mem"
+            color: "green"
+            max_value: 15600
+          entity_4:
+            entity_id: "sensor.disk_use_percent"
+            icon: "mdi:harddisk"
+            name: "Disk"
+            color: "red"
+            max_value: 100

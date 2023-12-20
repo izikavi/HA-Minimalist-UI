@@ -11,3 +11,10 @@ views:
   - !include views/10_lights.yaml
   - !include views/11_vacuum.yaml
   - !include views/12_servers.yaml
+  - !include views/13_plugs.yaml
+
+  # subviews
+  # living room
+  - !include subviews/lvg_room_ac.yaml
+  - !include subviews/lvg_room_tv.yaml
+  - !include subviews/lvg_room_st.yaml
